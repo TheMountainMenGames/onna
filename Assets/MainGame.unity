@@ -411,13 +411,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 100
-  zoomSpeed: 1000
+  zoomSpeed: 500
   rotateSpeed: 200
-  downPan: 30
   forwardPan: 1
   cameraAngle: 60
-  minY: -45
-  maxY: 45
+  maxzoomout: 1
+  maxzoomin: 1
 --- !u!1 &1074229865
 GameObject:
   m_ObjectHideFlags: 0
