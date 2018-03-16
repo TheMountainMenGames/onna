@@ -2,7 +2,7 @@
 
 public class CubePlacer : MonoBehaviour
 {
-    private Grid grid;
+    private GridControl grid;
     private Transform Cube;
     public Material Opaque;
     public Material standaard;
@@ -10,7 +10,7 @@ public class CubePlacer : MonoBehaviour
 
     private void Awake()
     {
-        grid = FindObjectOfType<Grid>();
+        grid = FindObjectOfType<GridControl>();
         GetNewCube();
     }
 

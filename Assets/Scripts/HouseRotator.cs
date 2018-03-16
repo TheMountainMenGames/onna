@@ -13,4 +13,5 @@ public class HouseRotator : MonoBehaviour {
 	void Update () {
 		
 	}
+
 }
