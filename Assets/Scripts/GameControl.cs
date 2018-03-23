@@ -13,6 +13,7 @@ public class GameControl : MonoBehaviour {
 
     void Start () {
         this.selectionControl = FindObjectOfType<SelectionControl>();
+        print("GameControl Key Minus and Plus to change GameState");
     }
 	
 	// Update is called once per frame

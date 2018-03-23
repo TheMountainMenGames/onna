@@ -29,12 +29,12 @@ public class GridControl : MonoBehaviour {
     { 
         if(gameControl.GetGameState() == 0)
         {
-            this.gridSize = 5f;
+            this.gridSize = 4f;
             this.selectionControl.UpdateScaleBox();
         }
         else if(gameControl.GetGameState() == 1)
         {
-            this.gridSize = 2.5f;
+            this.gridSize = 1f;
             this.selectionControl.UpdateScaleBox();
         }
     }
