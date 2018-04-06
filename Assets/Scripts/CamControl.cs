@@ -9,7 +9,7 @@ public class CamControl : MonoBehaviour {
     //declare variables
     public float scrollSpeed = 100;
     public float zoomSpeed = 1000;
-    public float rotateSpeed = 200;
+    public float rotateSpeed = 2;
     public float forwardPan = 2;
     public float cameraAngle = 60;
     public float maxzoomout = 1;
@@ -83,8 +83,12 @@ public class CamControl : MonoBehaviour {
         //rotate with middle mouse
         if (Input.GetMouseButton(2))
         {
-            rotationX += mouseX * Time.deltaTime * rotateSpeed;
-            transform.localEulerAngles = new Vector3(transform.eulerAngles.x, rotationX, 0);
+            RaycastHit raycastHit;
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+            Physics.Raycast(ray, out raycastHit);
+
+            Transform myTransform = Camera.main.transform;
+            myTransform.RotateAround(raycastHit.point, Vector3.up, rotateSpeed * Time.deltaTime);
         }      
     }
 }
