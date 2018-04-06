@@ -63,7 +63,7 @@ public class CameraControl : MonoBehaviour {
     {
         this.scrollSpeed = 100;
         this.zoomSpeed = 100;
-        this.rotateSpeed = 500;
+        this.rotateSpeed = 2;
         this.forwardPan = 5;
         this.maxZoomIn = 20;
         this.maxZoomOut = 100;
@@ -127,8 +127,12 @@ public class CameraControl : MonoBehaviour {
     {
         if (Input.GetMouseButton(2))
         {
-            this.rotationX += this.mouseX * Time.deltaTime * this.rotateSpeed;
-            transform.localEulerAngles = new Vector3(transform.eulerAngles.x, this.rotationX, 0);
+            RaycastHit raycastHit;
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+            Physics.Raycast(ray, out raycastHit);
+
+            Transform myTransform = Camera.main.transform;
+            myTransform.RotateAround(raycastHit.point, Vector3.up, rotateSpeed * Time.deltaTime);
         }
     }   
 
