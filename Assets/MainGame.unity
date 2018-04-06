@@ -414,9 +414,9 @@ MonoBehaviour:
   zoomSpeed: 1000
   rotateSpeed: 500
   forwardPan: 50
+  pixelBoundary: 20
   maxZoomOut: 0
   maxZoomIn: 0
-  pixelBoundary: 20
 --- !u!1 &1074229865
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapSizeX: 100
-  mapSizeZ: 100
+  mapSizeZ: 1000
 --- !u!1 &1560442280
 GameObject:
   m_ObjectHideFlags: 0

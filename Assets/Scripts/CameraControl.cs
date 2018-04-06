@@ -27,14 +27,16 @@ public class CameraControl : MonoBehaviour {
     private Vector3 cameraDirection;
     private Vector3 cameraPosition;
 
-    private float rotationX;
     private float horizontal; 
     private float vertical; 
     private float mouseWheel;
+    private float rotationX;
+    private float rotationY;
     private float mouseX;
+    private float mouseY;
     private float mousePosX;
-    private float mousePosZ;
-
+    private float mousePosY;
+    
     void Awake()
     {
         levelControl = FindObjectOfType<LevelControl>();
@@ -61,9 +63,9 @@ public class CameraControl : MonoBehaviour {
     //initialize public variable values
     private void InitCamControl() 
     {
-        this.scrollSpeed = 100;
+        this.scrollSpeed = 200;
         this.zoomSpeed = 100;
-        this.rotateSpeed = 2;
+        this.rotateSpeed = 200;
         this.forwardPan = 5;
         this.maxZoomIn = 20;
         this.maxZoomOut = 100;
@@ -77,8 +79,9 @@ public class CameraControl : MonoBehaviour {
         this.vertical = Input.GetAxisRaw("Vertical");
         this.mouseWheel = Input.GetAxis("Mouse ScrollWheel");
         this.mouseX = Input.GetAxis("Mouse X");
+        this.mouseY = Input.GetAxis("Mouse Y");
         this.mousePosX = Input.mousePosition.x;
-        this.mousePosZ = Input.mousePosition.z;
+        this.mousePosY = Input.mousePosition.y;
     }
 
     //scroll on keypress or edge of screen
@@ -87,24 +90,27 @@ public class CameraControl : MonoBehaviour {
         //scroll right
         if ((this.mousePosX >= Screen.width - this.pixelBoundary || this.horizontal > 0) && transform.position.x < this.levelControl.mapSizeX)
         {
-            transform.Translate(Vector3.right * Time.deltaTime * this.scrollSpeed);
+            //transform.Translate(Vector3.right * this.horizontal * Time.deltaTime * this.scrollSpeed);
+            transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.right * Time.deltaTime * this.scrollSpeed, 1);
         }
         //scroll left
         else if ((this.mousePosX <= this.pixelBoundary || this.horizontal < 0) && transform.position.x > 0)
         {
-            transform.Translate(Vector3.left * Time.deltaTime * this.scrollSpeed);
+            transform.Translate(Vector3.left * -(this.horizontal) * Time.deltaTime * this.scrollSpeed);
         }
 
         //scroll forward
-        if ((this.mousePosZ >= Screen.height - this.pixelBoundary || this.vertical > 0) && transform.position.z < this.levelControl.mapSizeZ)
+        if ((this.mousePosY >= Screen.height - this.pixelBoundary || this.vertical > 0) && transform.position.z < this.levelControl.mapSizeZ)
         {
             transform.Translate(Vector3.forward * Time.deltaTime * this.scrollSpeed);
         }
         //scroll back
-        else if ((this.mousePosZ >= this.pixelBoundary || this.vertical < 0) && transform.position.z > 0)
+        else if ((this.mousePosY <= this.pixelBoundary || this.vertical < 0) && transform.position.z > 0)
         {
             transform.Translate(Vector3.back * Time.deltaTime * this.scrollSpeed);
         }
+
+        Debug.Log("Mouse X: " + this.mouseX);
     }
 
     //zoom using mousewheel scroll
@@ -127,12 +133,15 @@ public class CameraControl : MonoBehaviour {
     {
         if (Input.GetMouseButton(2))
         {
+            //transform.localEulerAngles = new Vector3(transform.eulerAngles.x, this.rotationX, 0);
             RaycastHit raycastHit;
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
             Physics.Raycast(ray, out raycastHit);
 
+            
             Transform myTransform = Camera.main.transform;
-            myTransform.RotateAround(raycastHit.point, Vector3.up, rotateSpeed * Time.deltaTime);
+            myTransform.position = Vector3.Lerp(raycastHit.point, new Vector3(0, -(this.mouseX), 0), 0.3f);
+            myTransform.RotateAround(raycastHit.point, new Vector3(0, -(this.mouseX), 0), rotateSpeed * Time.deltaTime);
         }
     }   
 
