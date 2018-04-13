@@ -9,7 +9,7 @@ public class CameraControl : MonoBehaviour {
          * 1. add scroll boundaris to level size
          * 2. add zoom levels with pan
          * 3. add max and min zoom
-         * 4. change rotate with middle mouse to on centre screen
+         * 4. adjust level boundaries also for when rotated
          * 5. dont scroll when mouse outside of game screen
          */
 
@@ -51,7 +51,7 @@ public class CameraControl : MonoBehaviour {
     }
 
     void Update() {
-        print(cameraPosition);
+        
     }
 
     // Update is called once per frame

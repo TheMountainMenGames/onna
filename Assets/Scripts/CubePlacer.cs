@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CubePlacer : MonoBehaviour
 {
     private Grid grid;
     private Transform Cube;
+    public Transform house;
     public Material Opaque;
     public Material standaard;
-    public Transform house;
 
     private void Awake()
     {
@@ -21,22 +22,23 @@ public class CubePlacer : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             PlaceANewCube();
-        }
-        
+        }        
     }
 
     private void PlaceANewCube()
     {
-        RaycastHit hitInfo;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hitInfo))
+        if (!EventSystem.current.IsPointerOverGameObject()) //Check if mouse pointer is over menu
         {
-            PlaceCubeNear(hitInfo.point);
-            GetNewCube();
-            MoveCubeByMouse();
-        }
+            RaycastHit hitInfo;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+                PlaceCubeNear(hitInfo.point);
+                GetNewCube();
+                MoveCubeByMouse();
+            }
+        }
     }
 
     private void PlaceCubeNear(Vector3 clickPoint)
